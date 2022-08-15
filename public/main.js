@@ -19,32 +19,3 @@ function addMessage(e) {
     socket.emit('new-message', mensaje);
     return false;
 }
-function addProductos(e) {
-    const productos = {
-        producto: document.getElementById('producto').value,
-        precio: document.getElementById('precio').value,
-        imagen: document.getElementById('imagen').value
-    };
-    socket.emit('new-producto', productos);
-    return false;
-}
-socket.on("productos",(productos)=>{
-   htmlTable(productos).then((html)=>{
-    document.getElementById("productos").innerHTML=html
-   })
-})
-
-function htmlTable(productos) {
-    return fetch("views/tabla.hbs")
-    .then((respuesta)=>respuesta.text())
-    .then((plantilla)=>{
-        const template = Handlebars.compile(plantilla)
-        const html = template({productos})
-        return html
-    })
-}
-
-
-
-
-
